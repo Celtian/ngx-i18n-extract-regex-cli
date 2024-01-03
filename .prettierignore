@@ -1,0 +1,8 @@
+package.json
+package-lock.json
+yarn.lock
+dist
+.vscode/*
+**/interfaces/*.ts
+**/*.d.ts
+**/functions/dist/*

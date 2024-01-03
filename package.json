@@ -1,0 +1,73 @@
+{
+  "name": "ngx-i18n-extract-regex-cli",
+  "version": "0.0.0",
+  "description": "Tool for extracting translations from Angular app using regex",
+  "bin": {
+    "i18n-extract": "bin/index.js"
+  },
+  "scripts": {
+    "start": "yarn tsx bin/index.ts",
+    "start:watch": "tsc-watch --project tsconfig.json --onSuccess \"yarn start\"",
+    "build": "tsc",
+    "postbuild": "copyfiles ./README.md ./LICENSE ./dist",
+    "local": "npm i -g && ngx-i18n-extract-regex",
+    "prepare": "husky install",
+    "preinstall": "npx only-allow yarn",
+    "gpr:setup": "yarn tsx scripts/gpr-setup.ts",
+    "postversion": "git push && git push --follow-tags",
+    "publish:beta": "yarn && yarn build && npm publish --folder dist --tag beta",
+    "release:beta": "npm version prerelease -m \"chore(update): prelease %s β\"",
+    "release:patch": "git checkout master && npm version patch -m \"chore(update): patch release %s 🐛 \"",
+    "release:minor": "git checkout master && npm version minor -m \"chore(update): release %s 🚀\"",
+    "release:major": "git checkout master && npm version major -m \"chore(update): major release %s 💥 \"",
+    "fix-vulnerabilities": "npx yarn-audit-fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Celtian/ngx-i18n-extract-regex-cli.git"
+  },
+  "keywords": [
+    "angular",
+    "extract",
+    "i18n",
+    "ngx",
+    "regex"
+  ],
+  "author": {
+    "name": "Dominik Hladík",
+    "email": "dominik.hladik@seznam.cz",
+    "url": "https://github.com/Celtian"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Celtian/ngx-i18n-extract-regex-cli/issues"
+  },
+  "homepage": "https://github.com/Celtian/ngx-i18n-extract-regex-cli",
+  "engines": {
+    "node": ">= 12"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "dependencies": {
+    "commander": "^11.1.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^10.3.10"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/fs-extra": "^11.0.4",
+    "@types/glob": "^8.1.0",
+    "@types/jest": "^29.5.11",
+    "@typescript-eslint/eslint-plugin": "^6.17.0",
+    "@typescript-eslint/parser": "^6.17.0",
+    "copyfiles": "^2.4.1",
+    "eslint": "^8.56.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.1.1",
+    "tsx": "^4.7.0",
+    "typescript": "^5.3.3"
+  }
+}

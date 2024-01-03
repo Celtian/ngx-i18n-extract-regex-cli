@@ -1,0 +1,19 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#d21919",
+    "statusBar.foreground": "#ffffff"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+    "source.fixAll": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "files.eol": "\r\n",
+  "files.encoding": "utf8",
+  "prettier.endOfLine": "lf"
+}
