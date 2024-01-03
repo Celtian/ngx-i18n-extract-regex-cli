@@ -11,7 +11,7 @@
     "build": "tsc",
     "postbuild": "copyfiles ./README.md ./LICENSE ./dist",
     "local": "npm i -g && ngx-i18n-extract-regex",
-    "prepare": "husky install",
+    "husky:install": "husky install",
     "preinstall": "npx only-allow yarn",
     "gpr:setup": "yarn tsx scripts/gpr-setup.ts",
     "postversion": "git push && git push --follow-tags",
