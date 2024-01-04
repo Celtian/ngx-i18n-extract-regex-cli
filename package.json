@@ -3,7 +3,7 @@
   "version": "0.0.3",
   "description": "Tool for extracting translations from Angular app using regex",
   "bin": {
-    "i18n-extract": "bin/index.js"
+    "ngx-i18n-extract-regex-cli": "bin/index.js"
   },
   "scripts": {
     "start": "yarn tsx bin/index.ts",
@@ -11,7 +11,7 @@
     "build": "tsc",
     "postbuild": "copyfiles ./README.md ./LICENSE ./dist",
     "local": "npm i -g && ngx-i18n-extract-regex",
-    "husky:install": "husky install",
+    "prepare": "husky install",
     "preinstall": "npx only-allow yarn",
     "gpr:setup": "yarn tsx scripts/gpr-setup.ts",
     "postversion": "git push && git push --follow-tags",
@@ -60,10 +60,7 @@
     "@types/fs-extra": "^11.0.4",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.11",
-    "@typescript-eslint/eslint-plugin": "^6.17.0",
-    "@typescript-eslint/parser": "^6.17.0",
     "copyfiles": "^2.4.1",
-    "eslint": "^8.56.0",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.1.1",

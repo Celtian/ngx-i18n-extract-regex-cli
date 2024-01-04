@@ -19,7 +19,7 @@ npm install -g ngx-i18n-extract-regex-cli
 or
 
 ```terminal
-yarn add -g ngx-i18n-extract-regex-cli
+yarn global  add ngx-i18n-extract-regex-cli
 ```
 
 ## Quick start
@@ -29,6 +29,18 @@ _Go to command line and type_
 ```terminal
 ngx-i18n-extract-regex --help
 ```
+
+## Options
+
+| Option            | Type                                                                    | Default                        | Description                        |
+| ----------------- | ----------------------------------------------------------------------- | ------------------------------ | ---------------------------------- |
+| **library**       | `transloco, ngx-translate`                                              | `transloco`                    | Target i18n library                |
+| **cwd**           | string                                                                  | `src`                          | Current working directory          |
+| **source**        | string[]                                                                | `app/**/*.ts', 'app/**/*.html` | Path to source files               |
+| **langs**         | string[]                                                                | `assets/i18n/*.json`           | Path to language files             |
+| **default-value** | string                                                                  | `███`                          | Default string                     |
+| **dry-run**       | boolean                                                                 | `false`                        | Run proces without writing results |
+| **encoding**      | `utf-8, ascii, utf8, utf16le, ucs2, ucs-2, base64, latin1, binary, hex` | `utf-8`                        | Encoding for writing results       |
 
 ## License
 
