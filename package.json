@@ -9,7 +9,7 @@
     "start": "yarn tsx bin/index.ts",
     "start:watch": "tsc-watch --project tsconfig.json --onSuccess \"yarn start\"",
     "build": "tsc",
-    "postbuild": "copyfiles ./README.md ./LICENSE ./dist",
+    "postbuild": "copyfiles ./README.md ./LICENSE ./dist && yarn tsx scripts/remove-scripts.ts",
     "local": "npm i -g && ngx-i18n-extract-regex",
     "prepare": "husky install",
     "preinstall": "npx only-allow yarn",
