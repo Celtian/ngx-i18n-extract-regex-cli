@@ -54,6 +54,7 @@ const flattenJson = (obj: any, parentKey: string = '', separator: string = '.'):
   let result: Record<string, string> = {};
 
   for (const key in obj) {
+    // eslint-disable-next-line no-prototype-builtins
     if (obj.hasOwnProperty(key)) {
       const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
