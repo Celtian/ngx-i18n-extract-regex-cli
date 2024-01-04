@@ -3,7 +3,7 @@
 import { Command } from 'commander';
 import path from 'path';
 import { description, version } from '../package.json';
-import { I18nExtractOptions, TRANSLOCO_REGEX, i18nExtract } from '../src';
+import { I18nExtractOptions, NGX_TRANSLATE_REGEX, TRANSLOCO_REGEX, i18nExtract } from '../src';
 
 type I18nExtractCommanderOptions = Pick<
   I18nExtractOptions,
@@ -30,7 +30,7 @@ const bootstrap = (): void => {
     .option('--source <string...>', 'Path to source files', ['app/**/*.ts', 'app/**/*.html'])
     .option('--langs <string...>', 'Path to language files', ['assets/i18n/*.json'])
     .option('--default-value <string>', 'Default string', '███')
-    .option('--dry-run', 'Run proces without writing results', false)
+    .option('--dry-run', 'Run process without writing results', false)
     .option(
       '--encoding <"utf-8" | "ascii" | "utf8" | "utf16le" | "ucs2" | "ucs-2" | "base64" | "latin1" | "binary" | "hex">',
       'Encoding for writing results',
@@ -44,7 +44,7 @@ const bootstrap = (): void => {
         cwd: path.join(process.cwd(), options.cwd),
         source: options.source,
         langs: options.langs,
-        regex: TRANSLOCO_REGEX
+        regex: options.library === 'ngx-translate' ? NGX_TRANSLATE_REGEX : TRANSLOCO_REGEX
       });
     });
 
