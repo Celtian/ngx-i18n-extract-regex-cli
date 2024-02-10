@@ -9,11 +9,11 @@
     "start": "yarn tsx bin/index.ts",
     "start:watch": "tsc-watch --project tsconfig.json --onSuccess \"yarn start\"",
     "build": "tsc",
-    "postbuild": "copyfiles ./README.md ./LICENSE ./dist && yarn tsx scripts/remove-scripts.ts",
+    "postbuild": "copyfiles ./README.md ./LICENSE ./dist && yarn script:prepare-dist",
     "local": "npm i -g && ngx-i18n-extract-regex",
     "prepare": "husky install",
-    "preinstall": "npx only-allow yarn",
     "script:gpr-setup": "yarn tsx scripts/gpr-setup.ts",
+    "script:prepare-dist": "yarn tsx scripts/prepare-dist.ts",
     "postversion": "git push && git push --follow-tags",
     "publish:beta": "yarn && yarn build && npm publish --folder dist --tag beta",
     "release:beta": "npm version prerelease -m \"chore(update): prelease %s β\"",
@@ -44,7 +44,8 @@
   },
   "homepage": "https://github.com/Celtian/ngx-i18n-extract-regex-cli",
   "engines": {
-    "node": ">= 12"
+    "node": ">= 12",
+    "npm": "please-use-yarn"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
