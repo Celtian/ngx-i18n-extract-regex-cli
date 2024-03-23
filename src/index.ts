@@ -220,12 +220,12 @@ export const TRANSLOCO_REGEX: I18nExtractOptions['regex'] = {
       ]
     },
     {
-      formula: (key: string): string => `"${key}\\s*\\|\\s*transloco\\s*(:\\s*.*\\s*)?"`,
+      formula: (key: string): string => `"\\s*${key}\\s*\\|\\s*transloco\\s*(:\\s*.*\\s*)?"`,
       type: 'single',
       coveredCases: [`"'uni.close' | transloco"`, `"'uni.close' | transloco : variable"`]
     },
     {
-      formula: (key: string): string => `'${key}\\s*\\|\\s*transloco\\s*(:\\s*.*\\s*)?'`,
+      formula: (key: string): string => `'\\s*${key}\\s*\\|\\s*transloco\\s*(:\\s*.*\\s*)?'`,
       type: 'double',
       coveredCases: [`'"uni.close" | transloco'`, `'"uni.close" | transloco : variable'`]
     }
@@ -262,12 +262,12 @@ export const NGX_TRANSLATE_REGEX: I18nExtractOptions['regex'] = {
       ]
     },
     {
-      formula: (key: string): string => `"${key}\\s*\\|\\s*translate\\s*(:\\s*.*\\s*)?"`,
+      formula: (key: string): string => `"\\s*${key}\\s*\\|\\s*translate\\s*(:\\s*.*\\s*)?"`,
       type: 'single',
       coveredCases: [`"'uni.close' | translate"`, `"'uni.close' | translate : variable"`]
     },
     {
-      formula: (key: string): string => `'${key}\\s*\\|\\s*translate\\s*(:\\s*.*\\s*)?'`,
+      formula: (key: string): string => `'\\s*${key}\\s*\\|\\s*translate\\s*(:\\s*.*\\s*)?'`,
       type: 'double',
       coveredCases: [`'"uni.close" | translate'`, `'"uni.close" | translate : variable'`]
     }
