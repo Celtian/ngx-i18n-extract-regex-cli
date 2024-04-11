@@ -232,9 +232,9 @@ export const TRANSLOCO_REGEX: I18nExtractOptions['regex'] = {
   ],
   typescript: [
     {
-      formula: (key: string): string => `_\\(\\s*${key}\\s*\\)`,
+      formula: (key: string): string => `_\\(\\s*${key}(\\s*,)?\\s*\\)`,
       type: 'both',
-      coveredCases: [`_('uni.close')`, `_("uni.close")`]
+      coveredCases: [`_('uni.close')`, `_("uni.close")`, `_('uni.close',)`, `_("uni.close",)`]
     },
     {
       formula: (key: string): string => `transloco\\.translate\\(\\s*${key}\\s*(,\\s*.*\\s*)?\\)`,
@@ -274,9 +274,9 @@ export const NGX_TRANSLATE_REGEX: I18nExtractOptions['regex'] = {
   ],
   typescript: [
     {
-      formula: (key: string): string => `_\\(\\s*${key}\\s*\\)`,
+      formula: (key: string): string => `_\\(\\s*${key}(\\s*,)?\\s*\\)`,
       type: 'both',
-      coveredCases: [`_('uni.close')`, `_("uni.close")`]
+      coveredCases: [`_('uni.close')`, `_("uni.close")`, `_('uni.close',)`, `_("uni.close",)`]
     },
     {
       formula: (key: string): string => `translate\\.instant\\(\\s*${key}\\s*(,\\s*.*\\s*)?\\)`,
