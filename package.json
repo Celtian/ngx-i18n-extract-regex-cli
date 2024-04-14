@@ -1,6 +1,6 @@
 {
   "name": "ngx-i18n-extract-regex-cli",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Tool for extracting translations from Angular app using regex",
   "bin": {
     "ngx-i18n-extract-regex-cli": "bin/index.js"
