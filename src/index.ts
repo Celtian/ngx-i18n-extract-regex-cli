@@ -237,13 +237,15 @@ export const TRANSLOCO_REGEX: I18nExtractOptions['regex'] = {
       coveredCases: [`_('uni.close')`, `_("uni.close")`, `_('uni.close',)`, `_("uni.close",)`]
     },
     {
-      formula: (key: string): string => `transloco\\.translate\\(\\s*${key}\\s*(,\\s*.*\\s*)?\\)`,
+      formula: (key: string): string => `transloco\\.translate\\(\\s*${key}\\s*(,[^\\)]+)?\\)`,
       type: 'both',
       coveredCases: [
         `transloco.translate('uni.close')`,
         `transloco.translate("uni.close")`,
         `transloco.translate('uni.close', variable)`,
-        `transloco.translate("uni.close", variable)`
+        `transloco.translate("uni.close", variable)`,
+        `transloco.translate('uni.close', { first: 'first', second: 'second' })`,
+        `transloco.translate("uni.close", { first: 'first', second: 'second' })`
       ]
     }
   ]
@@ -279,13 +281,15 @@ export const NGX_TRANSLATE_REGEX: I18nExtractOptions['regex'] = {
       coveredCases: [`_('uni.close')`, `_("uni.close")`, `_('uni.close',)`, `_("uni.close",)`]
     },
     {
-      formula: (key: string): string => `translate\\.instant\\(\\s*${key}\\s*(,\\s*.*\\s*)?\\)`,
+      formula: (key: string): string => `translate\\.instant\\(\\s*${key}\\s*(,[^\\)]+)?\\)`,
       type: 'both',
       coveredCases: [
         `translate.instant('uni.close')`,
         `translate.instant("uni.close")`,
         `translate.instant('uni.close', variable)`,
-        `translate.instant("uni.close", variable)`
+        `translate.instant("uni.close", variable)`,
+        `transloco.instant('uni.close', { first: 'first', second: 'second' })`,
+        `transloco.instant("uni.close", { first: 'first', second: 'second' })`
       ]
     }
   ]
