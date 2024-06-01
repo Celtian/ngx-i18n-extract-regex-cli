@@ -8,7 +8,7 @@
 
 > Tool for extracting translations from Angular app using regex
 
-## Install
+## 🛠️ Install
 
 _Nodejs 12 or higher need to be installed first_
 
@@ -22,7 +22,7 @@ or
 yarn global add ngx-i18n-extract-regex-cli
 ```
 
-## Quick start
+## 🚀 Quick start
 
 _Go to command line and type_
 
@@ -30,7 +30,7 @@ _Go to command line and type_
 ngx-i18n-extract-regex --help
 ```
 
-## Options
+## 🛠️ Options
 
 | Option            | Type                                                                    | Default                        | Description                         |
 | ----------------- | ----------------------------------------------------------------------- | ------------------------------ | ----------------------------------- |
@@ -42,7 +42,7 @@ ngx-i18n-extract-regex --help
 | **dry-run**       | boolean                                                                 | `false`                        | Run process without writing results |
 | **encoding**      | `utf-8, ascii, utf8, utf16le, ucs2, ucs-2, base64, latin1, binary, hex` | `utf-8`                        | Encoding for writing results        |
 
-## License
+## 🪪 License
 
 Copyright &copy; 2024 [Dominik Hladik](https://github.com/Celtian)
 
