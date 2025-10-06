@@ -44,7 +44,7 @@ ngx-i18n-extract-regex --help
 
 ## 🪪 License
 
-Copyright &copy; 2024 [Dominik Hladik](https://github.com/Celtian)
+Copyright &copy; 2024 - 2025 [Dominik Hladik](https://github.com/Celtian)
 
 All contents are licensed under the [MIT license].
 
