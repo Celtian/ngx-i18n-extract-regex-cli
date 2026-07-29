@@ -44,10 +44,10 @@ jobs:
           json-summary-path: ./coverage/coverage-summary.json
           json-final-path: ./coverage/coverage-final.json
 
-      - name: ⬆️ Upload coverage reports
-        uses: codecov/codecov-action@v7
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          fail_ci_if_error: true
-          verbose: true
-          dry_run: true
+      # - name: ⬆️ Upload coverage reports
+      #   uses: codecov/codecov-action@v7
+      #   with:
+      #     token: ${{ secrets.CODECOV_TOKEN }}
+      #     fail_ci_if_error: true
+      #     verbose: true
+      #     dry_run: true
