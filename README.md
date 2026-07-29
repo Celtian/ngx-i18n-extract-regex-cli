@@ -16,6 +16,8 @@
 
 ## Installation
 
+Node.js 22.12 or newer is required to run the published CLI.
+
 Install the CLI globally:
 
 ```sh
@@ -95,13 +97,15 @@ Run `ngx-i18n-extract-regex-cli extract --help` for the complete command help.
 
 ## Development
 
-The repository uses the Node.js version declared in `.nvmrc`:
+Development uses the Node.js version declared in `.nvmrc` and the Bun version declared in `package.json`:
 
 ```sh
 nvm install
 nvm use
-yarn install --frozen-lockfile
-yarn build
+bun install
+bun run lint
+bun run build
+bun run test:coverage
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.

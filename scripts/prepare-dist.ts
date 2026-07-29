@@ -1,16 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { writeFileSync } from 'fs';
-import { join } from 'path';
-import distPackage from '../dist/package.json';
+import { copyFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import distPackage from '../dist/package.json' with { type: 'json' };
+
+const projectRoot = join(import.meta.dirname, '..');
+const distDirectory = join(projectRoot, 'dist');
+
+copyFileSync(join(projectRoot, 'README.md'), join(distDirectory, 'README.md'));
+copyFileSync(join(projectRoot, 'LICENSE'), join(distDirectory, 'LICENSE'));
 
 // Modify package.json in dist folder
 const pkg: Record<string, any> = distPackage;
 
 pkg.scripts = {};
 pkg.devDependencies = {};
+delete pkg.packageManager;
 pkg.engines = {
-  node: '>=12'
+  node: '>=22.12.0'
 };
 
-writeFileSync(join(__dirname, '..', 'dist', 'package.json'), JSON.stringify(pkg, null, 2));
+writeFileSync(join(distDirectory, 'package.json'), JSON.stringify(pkg, null, 2));
 console.log('File package.json modified:', pkg);

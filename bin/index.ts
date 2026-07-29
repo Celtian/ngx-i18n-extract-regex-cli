@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import path from 'path';
-import { description, version } from '../package.json';
-import { I18nExtractOptions, NGX_TRANSLATE_REGEX, TRANSLOCO_REGEX, i18nExtract } from '../src';
+import path from 'node:path';
+import packageJson from '../package.json' with { type: 'json' };
+import { NGX_TRANSLATE_REGEX, TRANSLOCO_REGEX, i18nExtract } from '../src/index.js';
+import type { I18nExtractOptions } from '../src/index.js';
+
+const { description, version } = packageJson;
 
 type I18nExtractCommanderOptions = Pick<
   I18nExtractOptions,

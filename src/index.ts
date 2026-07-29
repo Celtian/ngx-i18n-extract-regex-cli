@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { readFileSync, writeFileSync } from 'fs-extra';
-import { globStream } from 'glob';
-import * as path from 'path';
+import { glob } from 'glob';
+import { readFileSync, writeFileSync } from 'node:fs';
+import * as path from 'node:path';
 
 interface AbstractUpdateLangConfig {
   encoding: BufferEncoding;
@@ -30,10 +30,7 @@ interface UpdateLangConfig extends AbstractUpdateLangConfig, AbstractKeyStoreCon
 }
 
 interface UpdateLangsConfig
-  extends AbstractUpdateLangConfig,
-    AbstractKeyStoreConfig,
-    AbstractCwdConfig,
-    AbstractLangsConfig {}
+  extends AbstractUpdateLangConfig, AbstractKeyStoreConfig, AbstractCwdConfig, AbstractLangsConfig {}
 
 interface ParserConfig {
   formula: (key: string) => string;
@@ -53,17 +50,14 @@ export interface I18nExtractOptions extends AbstractUpdateLangConfig, AbstractCw
 const flattenJson = (obj: any, parentKey: string = '', separator: string = '.'): Record<string, string> => {
   let result: Record<string, string> = {};
 
-  for (const key in obj) {
-    // eslint-disable-next-line no-prototype-builtins
-    if (obj.hasOwnProperty(key)) {
-      const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
+  for (const [key, value] of Object.entries(obj)) {
+    const newKey = parentKey ? `${parentKey}${separator}${key}` : key;
 
-      if (typeof obj[key] === 'object' && obj[key] !== null) {
-        const flattenedSubObj = flattenJson(obj[key] as any, newKey, separator);
-        result = { ...result, ...flattenedSubObj };
-      } else {
-        result[newKey] = obj[key] as string;
-      }
+    if (typeof value === 'object' && value !== null) {
+      const flattenedSubObj = flattenJson(value, newKey, separator);
+      result = { ...result, ...flattenedSubObj };
+    } else {
+      result[newKey] = value as string;
     }
   }
 
@@ -83,7 +77,9 @@ const findOccurance = (config: FindOccuranceConfig): void => {
 };
 
 const updateLang = (config: UpdateLangConfig): void => {
-  const langFileContent = readFileSync(config.langPath).toString();
+  const langFileContent = readFileSync(config.langPath, {
+    encoding: config.encoding
+  });
 
   const flattenedLang = flattenJson(JSON.parse(langFileContent));
 
@@ -102,7 +98,7 @@ const updateLang = (config: UpdateLangConfig): void => {
     for (let i = 0; i < keys.length; i++) {
       const currentKey = keys[i];
       currentObj = currentObj[currentKey] =
-        currentObj[currentKey] || (i === keys.length - 1 ? langKeyStore.get(key) || config.defaultValue : {});
+        currentObj[currentKey] || (i === keys.length - 1 ? (langKeyStore.get(key) ?? config.defaultValue) : {});
     }
   }
 
@@ -111,33 +107,27 @@ const updateLang = (config: UpdateLangConfig): void => {
   });
 };
 
-const updateLangs = (config: UpdateLangsConfig): void => {
+const updateLangs = async (config: UpdateLangsConfig): Promise<void> => {
   console.log('\n✔ Writing result into language files');
 
-  const files: string[] = [];
-
-  const langFilesStream = globStream(config.langs, {
+  const files = await glob(config.langs, {
     cwd: config.cwd
   });
 
-  langFilesStream.on('data', async (langPath) => {
-    files.push(langPath);
-
+  for (const langPath of files) {
     updateLang({
       defaultValue: config.defaultValue,
       encoding: config.encoding,
       keyStore: config.keyStore,
       langPath: path.join(config.cwd, langPath)
     });
-  });
+  }
 
-  langFilesStream.on('end', () => {
-    console.log(`ℹ Keys were were updated in:\n`);
+  console.log(`ℹ Keys were updated in:\n`);
 
-    console.table(files);
+  console.table(files);
 
-    console.log('\n🌵 Done! 🌵\n');
-  });
+  console.log('\n🌵 Done! 🌵\n');
 };
 
 export const i18nExtract = async (config: I18nExtractOptions): Promise<void> => {
@@ -151,15 +141,15 @@ export const i18nExtract = async (config: I18nExtractOptions): Promise<void> => 
   const rxSingleQuotes = /'(?<content>([^'\s]|\\')+)'/;
   const rxDoubleQuotes = /"(?<content>([^"\s]|\\")+)"/;
 
-  const filesStream = globStream(config.source, {
+  const files = await glob(config.source, {
     cwd: config.cwd
   });
 
-  filesStream.on('data', async (filePath) => {
+  for (const filePath of files) {
     filesCount++;
     const fileContent = readFileSync(path.join(config.cwd, filePath), {
       encoding: config.encoding
-    }).toString();
+    });
 
     const createRegex = (parser: ParserConfig): RegExp[] => {
       if (parser.type === 'single') {
@@ -186,25 +176,23 @@ export const i18nExtract = async (config: I18nExtractOptions): Promise<void> => 
         keyStore
       });
     }
-  });
+  }
 
-  filesStream.on('end', () => {
-    console.log(`ℹ ${keyStore.size} keys were found in ${filesCount} files.`);
+  console.log(`ℹ ${keyStore.size} keys were found in ${filesCount} files.`);
 
-    if (!config.dryRun) {
-      updateLangs({
-        cwd: config.cwd,
-        defaultValue: config.defaultValue,
-        encoding: config.encoding,
-        langs: config.langs,
-        keyStore
-      });
-    } else {
-      console.log(`ℹ Dry run activated. Language files will not be updated.`);
+  if (!config.dryRun) {
+    await updateLangs({
+      cwd: config.cwd,
+      defaultValue: config.defaultValue,
+      encoding: config.encoding,
+      langs: config.langs,
+      keyStore
+    });
+  } else {
+    console.log(`ℹ Dry run activated. Language files will not be updated.`);
 
-      console.log('\n🌵 Done! 🌵\n');
-    }
-  });
+    console.log('\n🌵 Done! 🌵\n');
+  }
 };
 
 export const TRANSLOCO_REGEX: I18nExtractOptions['regex'] = {
@@ -288,8 +276,8 @@ export const NGX_TRANSLATE_REGEX: I18nExtractOptions['regex'] = {
         `translate.instant("uni.close")`,
         `translate.instant('uni.close', variable)`,
         `translate.instant("uni.close", variable)`,
-        `transloco.instant('uni.close', { first: 'first', second: 'second' })`,
-        `transloco.instant("uni.close", { first: 'first', second: 'second' })`
+        `translate.instant('uni.close', { first: 'first', second: 'second' })`,
+        `translate.instant("uni.close", { first: 'first', second: 'second' })`
       ]
     }
   ]
