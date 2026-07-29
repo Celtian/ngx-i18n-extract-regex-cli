@@ -10,10 +10,10 @@ jobs:
       - name: 🗜️ Checkout
         uses: actions/checkout@v4
 
-      - name: 🗜️ Setup node version
+      - name: 🗜️ Setup Node from .nvmrc
         uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version-file: '.nvmrc'
           registry-url: 'https://registry.npmjs.org'
 
       - name: 🛠️ Install
